@@ -8,4 +8,4 @@
       </br>
       </br>
 2. Click load</br>
-3. Click Clock</br>
+3. Click Clock until every process has the finish</br>
