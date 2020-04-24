@@ -1,3 +1,7 @@
+<h1> OS-scheduling-simulator </h1>
+<h4>implement of FCFS, Round Robin, and SJF non preemptive</h4>
+
+
 1. Browse file .txt </br>
   for ex:</br>
         id priority longprocess bursttime timeaccesIO EarlyClock </br>
