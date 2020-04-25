@@ -149,7 +149,7 @@ namespace Antrian.cpu
             }
 
             if (rrDemo.getId() != 0){
-                rTBlog.Text += "Demosi dari Qb ke Qc dengan ID : " + rrDemo.getId() + " pada clock ke = " + clockTime;
+                rTBlog.Text += "Promosi dari Qb ke Qc dengan ID : " + rrDemo.getId() + " pada clock ke = " + clockTime;
                 rrDemo.setWaitingClock(0);
                 sjf.processes.Add(rrDemo);
                 rTBlog.AppendText(Environment.NewLine);

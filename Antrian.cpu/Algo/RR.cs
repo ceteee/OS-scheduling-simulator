@@ -75,7 +75,7 @@ namespace Antrian.cpu.Algo
                     totalRound = process.getRound() + 1;
                     process.setRound(totalRound);
                 }
-                if (totalRound == 4)
+                if (totalRound == 3 * 3)
                 {
                     processes.RemoveAt(index);
                     return process;
