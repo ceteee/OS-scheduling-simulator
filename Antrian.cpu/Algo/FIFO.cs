@@ -21,6 +21,9 @@ namespace Antrian.cpu.Algo
         private int clockTime;
 
 
+        private int elapsedClockTime;
+
+
         public FIFO(List<Process> bfp)
         {
             foreach (var p in bfp)
@@ -39,7 +42,7 @@ namespace Antrian.cpu.Algo
         }
 
 
-        public void tick()
+        public Process tick()
         {
             clockTime++;
             completed = 0;
@@ -49,27 +52,46 @@ namespace Antrian.cpu.Algo
                 {
                     processes.Add(p);
                 }
+
             }
+            
 
             Process process = null;
-            foreach (var p in processes)
-            {
-                if (p.getBurstTime() == 0) completed++;
-            }
             for (int i = 0; i < processes.Count; i++)
             {
-                if (processes[i].getBurstTime() != 0)
+
+
+                int totalElapsedTime = 0;
+                if (processes[i].getTest() > 0)
                 {
                     process = processes[i];
+                    process.setTest(process.getBurstTime());
+                    process.setBurstTime(process.getBurstTime() - 1);
+                    totalElapsedTime = process.getTime() + 1;
+                    process.setElapsedClock(totalElapsedTime);
+                    if ((totalElapsedTime%11) == 0)
+                    {
+                        processes.RemoveAt(i);
+                        return process;
+                    }
                     break;
+
                 }
+
+
             }
 
 
-            if (process != null)
-            {
-                process.setBurstTime(process.getBurstTime() - 1);
-            }
+
+
+
+
+
+
+            return new Process();
+
+
+
         }
 
     }

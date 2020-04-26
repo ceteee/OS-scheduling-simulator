@@ -55,7 +55,7 @@ namespace Antrian.cpu.Algo
             List<int> indexedUncomplete = new List<int>();
             for (int i = 0; i < processes.Count; i++)
             {
-                if (processes[i].getBurstTime() != 0)
+                if (processes[i].getTest() != 0)
                 {
                     count++;
                     indexedUncomplete.Add(i);
@@ -69,13 +69,14 @@ namespace Antrian.cpu.Algo
 
                 elapsedClockTime++;
                 int totalRound = 0;
-                if (process.getBurstTime() > 0)
+                if (process.getTest() > 0)
                 {
+                    process.setTest(process.getBurstTime());
                     process.setBurstTime(process.getBurstTime() - 1);
                     totalRound = process.getRound() + 1;
                     process.setRound(totalRound);
                 }
-                if (totalRound == 4)
+                if ((totalRound%4)==0)
                 {
                     processes.RemoveAt(index);
                     return process;
