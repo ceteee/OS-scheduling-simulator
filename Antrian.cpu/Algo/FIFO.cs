@@ -62,14 +62,14 @@ namespace Antrian.cpu.Algo
 
 
                 int totalElapsedTime = 0;
-                if (processes[i].getBurstTime() > 0)
+                if (processes[i].getTest() > 0)
                 {
                     process = processes[i];
-
+                    process.setTest(process.getBurstTime());
                     process.setBurstTime(process.getBurstTime() - 1);
                     totalElapsedTime = process.getTime() + 1;
                     process.setElapsedClock(totalElapsedTime);
-                    if (totalElapsedTime == 11)
+                    if ((totalElapsedTime%11) == 0)
                     {
                         processes.RemoveAt(i);
                         return process;

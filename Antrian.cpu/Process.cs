@@ -11,7 +11,7 @@ namespace Antrian.cpu
         public Process(){
 
         }
-        public Process(int id, int prioritas, int lamaProses, int burstTime, int aksesIO, int clockAwal)
+        public Process(int id, int prioritas, int lamaProses, int burstTime, int aksesIO, int clockAwal, int test)
         {
             this.id = id;
             this.prioritas = prioritas;
@@ -22,6 +22,7 @@ namespace Antrian.cpu
             this.waitingClock = 0;
             this.round = 0;
             this.elapsedclockTime = 0;
+            this.test = test;
 
         }
 
@@ -43,6 +44,8 @@ namespace Antrian.cpu
 
         private int elapsedclockTime;
 
+        private int test;
+
 
         public int getTime()
         {
@@ -62,6 +65,15 @@ namespace Antrian.cpu
             this.round = round;
         }
 
+        public int getTest()
+        {
+            return test;
+        }
+
+        public void setTest(int test)
+        {
+            this.test = test;
+        }
         public int getWaitingClock()
         {
             return waitingClock;

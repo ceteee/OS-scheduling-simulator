@@ -29,7 +29,7 @@ namespace Antrian.cpu.Algo
                 if (p.getPrioritas() == 3 && p.getClockAwal() == 0)
                     this.processes.Add(p);
             }
-            this.processes = processes.OrderBy(process => process.getBurstTime()).ToList();
+            this.processes = processes.OrderBy(process => process.getTest()).ToList();
             foreach (var p in bfp)
             {
                 if (p.getPrioritas() == 3 && p.getClockAwal() != 0)
@@ -58,11 +58,11 @@ namespace Antrian.cpu.Algo
 
             foreach (var p in processes)
             {
-                if (p.getBurstTime() == 0) completed++;
+                if (p.getTest() == 0) completed++;
             };
             for (int i = 0; i < processes.Count; i++)
             {
-                if (processes[i].getBurstTime() != 0)
+                if (processes[i].getTest() != 0)
                 {
                     process = processes[i];
                     selected = i;
@@ -93,6 +93,7 @@ namespace Antrian.cpu.Algo
 
             if (process != null)
             {
+                process.setTest(process.getBurstTime());
                 process.setBurstTime(process.getBurstTime() - 1);
             }
 
