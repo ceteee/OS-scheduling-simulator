@@ -21,6 +21,8 @@ namespace Antrian.cpu
             this.clockAwal = clockAwal;
             this.waitingClock = 0;
             this.round = 0;
+            this.elapsedclockTime = 0;
+
         }
 
         private int id;
@@ -39,7 +41,17 @@ namespace Antrian.cpu
 
         private int round;
 
+        private int elapsedclockTime;
 
+
+        public int getTime()
+        {
+            return elapsedclockTime;
+        }
+        public void setElapsedClock(int elapsedclockTime)
+        {
+            this.elapsedclockTime = elapsedclockTime;
+        }
         public int getRound()
         {
             return round;
@@ -120,6 +132,7 @@ namespace Antrian.cpu
         {
             this.clockAwal = clockAwal;
         }
+
 
     }
 

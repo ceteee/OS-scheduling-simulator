@@ -130,7 +130,7 @@ namespace Antrian.cpu
             }
             qC.AppendText(Environment.NewLine);
 
-            fifo.tick();
+            Process ffDemo = fifo.tick();
             Process rrDemo = rr.tick();
             List<Process> sjfDemo = sjf.tick();
             if (sjfDemo.Count > 0)
@@ -163,6 +163,14 @@ namespace Antrian.cpu
                 }
                 rTBlog.AppendText(Environment.NewLine);
             }
+
+            if (ffDemo.getId() != 0)
+            {
+                rTBlog.Text += "Demosi dari Qa ke Qc dengan ID : " + ffDemo.getId() + " pada clock ke = " + clockTime;
+                sjf.processes.Add(ffDemo);
+                rTBlog.AppendText(Environment.NewLine);
+            }
+
 
 
 
