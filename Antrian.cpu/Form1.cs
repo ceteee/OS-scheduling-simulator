@@ -29,6 +29,9 @@ namespace Antrian.cpu
         public Form1()
         {
             InitializeComponent();
+            richTextBox2.Text += "ID        Priority        CPU Burst Time";
+            richTextBox3.Text += "ID        Priority        CPU Burst Time";
+            richTextBox4.Text += "ID        Priority        CPU Burst Time";
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -91,48 +94,54 @@ namespace Antrian.cpu
             }
         }
 
+        
+
         private void button1_Click(object sender, EventArgs e)
         {
-
             textBox2.Text = clockTime.ToString();
-
             foreach (var p in fifo.processes)
             {
                 if (p.getTest() > 0)
                 {
-                    qA.Text += "PROSES ID : " + p.getId().ToString() + " ---------> " + p.getBurstTime() + " clock time tersisa, Clock Saat ini = " + clockTime + Environment.NewLine;
-                }
+                    qA.Text += p.getId().ToString() + "\t   " + p.getPrioritas().ToString() + "\t\t" + p.getBurstTime() + Environment.NewLine;
+                    qA.Text += "--------------------------------------------------";
+                    qA.AppendText(Environment.NewLine);
+                }              
                 else
                 {
-                    qA.Text += "PROSES ID : " + p.getId().ToString() + " selesai  ,Clock Saat ini = " + clockTime + Environment.NewLine;
+                    qA.Text += "PROSES ID : " + p.getId().ToString() + " selesai";
                 }
             }
-            qA.AppendText(Environment.NewLine);
+
             foreach (var p in rr.processes)
             {
                 if (p.getTest() > 0)
                 {
-                    qB.Text += "PROSES ID : " + p.getId().ToString() + " ---------> " + (p.getBurstTime()+1) + " clock time tersisa,  Clock Saat ini = " + clockTime + Environment.NewLine;
+                    qB.Text += p.getId().ToString() + "\t   " + p.getPrioritas().ToString() + "\t\t" + (p.getBurstTime()+1) + Environment.NewLine;
+                    qB.Text += "--------------------------------------------------";
+                    qB.AppendText(Environment.NewLine);
                 }
                 else
                 {
                     qB.Text += "PROSES ID : " + p.getId().ToString() + " selesai , Clock Saat ini = " + clockTime + Environment.NewLine;
                 }
             }
-            qB.AppendText(Environment.NewLine);
 
             foreach (var p in sjf.processes)
             {
                 if (p.getTest() > 0)
                 {
-                    qC.Text += "PROSES ID : " + p.getId().ToString() + " ---------> " + (p.getBurstTime() + 1) + " clock time tersisa,  Clock Saat ini = " + clockTime + Environment.NewLine;
+                    qC.Text += p.getId().ToString() + "\t   " + p.getPrioritas().ToString() + "\t\t" + (p.getBurstTime() + 1) + Environment.NewLine;
+                    qC.Text += "--------------------------------------------------";
+                    qC.AppendText(Environment.NewLine);
                 }
                 else
                 {
-                    qC.Text += "PROSES ID : " + p.getId().ToString() + " selesai ,  Clock Saat ini = " + clockTime + Environment.NewLine;
+                    qC.Text += p.getId().ToString() + "\t   " + " " + "\t\t" + "Selesai" + Environment.NewLine;
+                    qC.Text += "--------------------------------------------------";
+                    qC.AppendText(Environment.NewLine);
                 }
             }
-            qC.AppendText(Environment.NewLine);
 
             Process ffDemo=fifo.tick();
             Process rrDemo = rr.tick();
@@ -154,6 +163,7 @@ namespace Antrian.cpu
 
             if (rrDemo.getId() != 0)
             {
+                qB.ResetText();
                 rTBlog.Text += "Demosi dari Qb ke Qc dengan ID : " + rrDemo.getId() + " pada clock ke = " + clockTime;
                 rrDemo.setWaitingClock(0);
                 rrDemo.setBurstTime(rrDemo.getBurstTime() + 1);
@@ -174,13 +184,12 @@ namespace Antrian.cpu
 
             if (ffDemo.getId() != 0)
             {
+                qA.ResetText();
                 rTBlog.Text += "Demosi dari Qa ke Qc dengan ID : " + ffDemo.getId() + " pada clock ke = " + clockTime;
                 sjf.processes.Add(ffDemo);
                 rTBlog.AppendText(Environment.NewLine);
             }
             clockTime++;
         }
-
-
     }
 }
