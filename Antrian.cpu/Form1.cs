@@ -98,6 +98,10 @@ namespace Antrian.cpu
 
         private void button1_Click(object sender, EventArgs e)
         {
+            qA.Text = String.Empty;
+            qB.Text = String.Empty;
+            qC.Text = String.Empty;
+
             textBox2.Text = clockTime.ToString();
             foreach (var p in fifo.processes)
             {
@@ -109,7 +113,7 @@ namespace Antrian.cpu
                 }              
                 else
                 {
-                    qA.Text += "PROSES ID : " + p.getId().ToString() + " selesai";
+                    qA.Text = "PROSES ID : " + p.getId().ToString() + " selesai";
                 }
             }
 
@@ -123,7 +127,7 @@ namespace Antrian.cpu
                 }
                 else
                 {
-                    qB.Text += "PROSES ID : " + p.getId().ToString() + " selesai , Clock Saat ini = " + clockTime + Environment.NewLine;
+                    qB.Text = "PROSES ID : " + p.getId().ToString() + " selesai , Clock Saat ini = " + clockTime + Environment.NewLine;
                 }
             }
 
