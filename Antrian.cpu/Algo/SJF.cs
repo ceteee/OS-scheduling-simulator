@@ -29,7 +29,7 @@ namespace Antrian.cpu.Algo
                 if (p.getPrioritas() == 3 && p.getClockAwal() == 0)
                     this.processes.Add(p);
             }
-            this.processes = processes.OrderBy(process => process.getTest()).ToList();
+            this.processes = processes.OrderBy(process => process.getBurstTime()).ToList();
             foreach (var p in bfp)
             {
                 if (p.getPrioritas() == 3 && p.getClockAwal() != 0)
@@ -58,11 +58,11 @@ namespace Antrian.cpu.Algo
 
             foreach (var p in processes)
             {
-                if (p.getTest() == 0) completed++;
+                if (p.getBurstTime() == 0) completed++;
             };
             for (int i = 0; i < processes.Count; i++)
             {
-                if (processes[i].getTest() != 0)
+                if (processes[i].getBurstTime() != 0)
                 {
                     process = processes[i];
                     selected = i;
@@ -82,20 +82,35 @@ namespace Antrian.cpu.Algo
                         processes[i].setWaitingClock(processes[i].getWaitingClock() + 1);
                         if (processes[i].getWaitingClock() >= 25)
                         {
+
                             demo.Add(processes[i]);
                             processes.RemoveAt(i);
                             i--;
+
                         }
+
                     }
                 }
             }
 
 
-            if (process != null)
+            if (process != null && process.getClockAwal() == 0)
             {
-                process.setTest(process.getBurstTime());
+                process.setFirst(!process.getFirst());
                 process.setBurstTime(process.getBurstTime() - 1);
             }
+
+            if (process != null && process.getFirst() == false)
+            {
+
+                process.setBurstTime(process.getBurstTime() - 1);
+            }
+            if (process != null && process.getFirst() == true)
+            {
+                process.setFirst(!process.getFirst());
+                process.setBurstTime(process.getBurstTime());
+            }
+
 
             if (demo.Count > 0)
             {

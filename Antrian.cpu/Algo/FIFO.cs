@@ -54,7 +54,7 @@ namespace Antrian.cpu.Algo
                 }
 
             }
-            
+
 
             Process process = null;
             for (int i = 0; i < processes.Count; i++)
@@ -62,17 +62,34 @@ namespace Antrian.cpu.Algo
 
 
                 int totalElapsedTime = 0;
-                if (processes[i].getTest() > 0)
+                if (processes[i].getBurstTime() > 0 && processes[i].getFirst() == true)
                 {
                     process = processes[i];
-                    process.setTest(process.getBurstTime());
+                    process.setFirst(!process.getFirst());
+                    process.setBurstTime(process.getBurstTime());
+                    totalElapsedTime = process.getTime() + 1;
+                    process.setElapsedClock(totalElapsedTime);
+                    break;
+
+                }
+
+                if (processes[i].getBurstTime() > 0 && processes[i].getFirst() == false)
+                {
+                    process = processes[i];
+
                     process.setBurstTime(process.getBurstTime() - 1);
                     totalElapsedTime = process.getTime() + 1;
                     process.setElapsedClock(totalElapsedTime);
-                    if ((totalElapsedTime%11) == 0)
+                    if ((totalElapsedTime % 11) == 0)
                     {
                         processes.RemoveAt(i);
+                        if (processes.Count != 0)
+                        {
+                            processes[i].setBurstTime(processes[i].getBurstTime() - 1);
+                            processes[i].setFirst(!processes[i].getFirst());
+                        }
                         return process;
+
                     }
                     break;
 
