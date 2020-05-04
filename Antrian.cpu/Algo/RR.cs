@@ -69,21 +69,14 @@ namespace Antrian.cpu.Algo
 
                 elapsedClockTime++;
                 int totalRound = 0;
-                if (process.getBurstTime() > 0 && process.getFirst() == false)
+                if (process.getBurstTime() > 0 )
                 {
                     process.setBurstTime(process.getBurstTime() - 1);
                     totalRound = process.getRound() + 1;
                     process.setRound(totalRound);
                 }
-                if (process.getBurstTime() > 0 && process.getFirst() == true)
-                {
-                    process.setFirst(!process.getFirst());
-                    process.setBurstTime(process.getBurstTime());
-                    totalRound = process.getRound() + 1;
-                    process.setRound(totalRound);
-                }
 
-                if ((totalRound % 4) == 0)
+                if (totalRound == 3*3)
                 {
                     processes.RemoveAt(index);
                     return process;

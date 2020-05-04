@@ -80,7 +80,7 @@ namespace Antrian.cpu.Algo
                     if (processes[i].getBurstTime() != 0)
                     {
                         processes[i].setWaitingClock(processes[i].getWaitingClock() + 1);
-                        if (processes[i].getWaitingClock() >= 25)
+                        if (processes[i].getWaitingClock() >= 26)
                         {
 
                             demo.Add(processes[i]);
@@ -94,22 +94,13 @@ namespace Antrian.cpu.Algo
             }
 
 
-            if (process != null && process.getClockAwal() == 0)
-            {
-                process.setFirst(!process.getFirst());
-                process.setBurstTime(process.getBurstTime() - 1);
-            }
-
-            if (process != null && process.getFirst() == false)
+ 
+            if (process != null)
             {
 
                 process.setBurstTime(process.getBurstTime() - 1);
             }
-            if (process != null && process.getFirst() == true)
-            {
-                process.setFirst(!process.getFirst());
-                process.setBurstTime(process.getBurstTime());
-            }
+
 
 
             if (demo.Count > 0)
